@@ -1,0 +1,17 @@
+version: "3.8"
+
+x-base: &base
+  build:
+    dockerfile: ./docker_dev/Dockerfile
+    context: .
+services:
+  web:
+    <<: *base
+    tty: true
+    stdin_open: true
+    restart: always
+    volumes:
+      - .:/app
+    command: npm run serve
+    ports:
+      - "8080:8080"
