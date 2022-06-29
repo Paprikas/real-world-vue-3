@@ -8,8 +8,7 @@ import EventEdit from '../views/event/EventEdit.vue'
 import NotFound from '../views/NotFound.vue'
 import NetworkError from '../views/NetworkError.vue'
 import NProgress from 'nprogress'
-import EventService from '@/services/EventService.js'
-// import GStore from '@/store'
+import Store from '@/store'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -33,27 +32,23 @@ const routes = [
     props: true,
     component: EventLayout,
     beforeEnter: (to) => {
-      return EventService.getEvent(to.params.id)
-        .then((response) => {
-          response.data
-          // GStore.event = response.data
-        })
-        .catch((error) => {
-          console.log(error)
+      // TODO: Wait before rendering
+      return Store.dispatch('fetchEvent', to.params.id).catch((error) => {
+        console.log(error)
 
-          if (error.response && error.response.status == 404) {
-            return {
-              name: '404Resource',
-              params: {
-                resource: 'event',
-              },
-            }
-          } else {
-            return {
-              name: 'NetworkError',
-            }
+        if (error.response && error.response.status == 404) {
+          return {
+            name: '404Resource',
+            params: {
+              resource: 'event',
+            },
           }
-        })
+        } else {
+          return {
+            name: 'NetworkError',
+          }
+        }
+      })
     },
     children: [
       {
@@ -134,11 +129,11 @@ router.beforeEach((to, from) => {
 
   const notAuthorized = true
   if (to.meta.requireAuth && notAuthorized) {
-    // GStore.flashMessage = "Sorry, you're not authorized"
-    //
-    // setTimeout(() => {
-    //   GStore.flashMessage = ''
-    // }, 3000)
+    Store.dispatch('setFlashMessage', "Sorry, you're not authorized")
+
+    setTimeout(() => {
+      Store.dispatch('setFlashMessage', '')
+    }, 3000)
 
     if (from.href) {
       return false

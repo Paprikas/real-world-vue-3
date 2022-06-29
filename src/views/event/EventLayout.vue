@@ -14,6 +14,10 @@
 
 <script>
 export default {
-  // inject: ['GStore'],
+  computed: {
+    event() {
+      return this.$store.state.event
+    },
+  },
 }
 </script>

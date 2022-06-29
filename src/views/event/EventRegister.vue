@@ -6,15 +6,16 @@
 <script>
 export default {
   props: ['event'],
-  // inject: ['GStore'],
   methods: {
     register() {
-      // this.GStore.flashMessage =
-      //   "You're successfully registered for " + this.event.title
-      //
-      // setTimeout(() => {
-      //   this.GStore.flashMessage = ''
-      // }, 3000)
+      this.$store.dispatch(
+        'setFlashMessage',
+        "You're successfully registered for " + this.event.title
+      )
+
+      setTimeout(() => {
+        this.$store.dispatch('setFlashMessage', '')
+      }, 3000)
 
       // this.$router.replace will not save in history
       // this.$router.go(1) - Browser forward button
