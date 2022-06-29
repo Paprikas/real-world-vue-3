@@ -39,6 +39,26 @@ const routes = [
     ],
   },
   {
+    path: '/event/:afterEvent(.*)',
+    redirect: (to) => {
+      return { path: '/events/' + to.params.afterEvent }
+    },
+  },
+  // {
+  //   path: '/event/:id',
+  //   redirect: { name: 'EventDetails' },
+  //   children: [
+  //     {
+  //       path: 'register',
+  //       redirect: () => ({ name: 'EventRegister' }),
+  //     },
+  //     {
+  //       path: 'edit',
+  //       redirect: () => ({ name: 'EventEdit' }),
+  //     },
+  //   ],
+  // },
+  {
     path: '/about',
     name: 'AboutView',
     component: AboutView,
