@@ -4,17 +4,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   props: ['event'],
   methods: {
+    ...mapActions('flash', ['setFlashMessage']),
     register() {
-      this.$store.dispatch(
-        'setFlashMessage',
+      this.setFlashMessage(
         "You're successfully registered for " + this.event.title
       )
 
       setTimeout(() => {
-        this.$store.dispatch('setFlashMessage', '')
+        this.setFlashMessage('')
       }, 3000)
 
       // this.$router.replace will not save in history

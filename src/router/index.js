@@ -130,10 +130,10 @@ router.beforeEach((to, from) => {
 
   const notAuthorized = true
   if (to.meta.requireAuth && notAuthorized) {
-    Store.dispatch('setFlashMessage', "Sorry, you're not authorized")
+    Store.dispatch('flash/setFlashMessage', "Sorry, you're not authorized")
 
     setTimeout(() => {
-      Store.dispatch('setFlashMessage', '')
+      Store.dispatch('flash/setFlashMessage', '')
     }, 3000)
 
     if (from.href) {

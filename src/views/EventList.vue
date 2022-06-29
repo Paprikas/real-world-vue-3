@@ -1,7 +1,7 @@
 <template>
-  <h1>Events For Good</h1>
+  <h1>Events For {{ user.userInfo.name }}</h1>
   <div class="events">
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <EventCard v-for="event in event.events" :key="event.id" :event="event" />
     <div class="pagination">
       <router-link
         id="page-prev"
@@ -31,6 +31,7 @@
 <script>
 // @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'EventList',
@@ -52,7 +53,7 @@ export default {
   },
   beforeRouteUpdate(routeTo) {
     const page = parseInt(routeTo.query.page) || 1
-    return this.$store.dispatch('fetchEvents', page).catch((error) => {
+    return this.fetchEvents(page).catch((error) => {
       return {
         name: 'ErrorDisplay',
         params: { error: error },
@@ -60,18 +61,16 @@ export default {
     })
   },
   computed: {
-    totalEvents() {
-      return this.$store.state.totalEvents
-    },
+    ...mapState(['event', 'user']),
     totalPages() {
-      return Math.ceil(this.totalEvents / 2)
+      return Math.ceil(this.event.totalEvents / 2)
     },
     hasNextPage() {
       return this.page < this.totalPages
     },
-    events() {
-      return this.$store.state.events
-    },
+  },
+  methods: {
+    ...mapActions(['fetchEvents']),
   },
 }
 </script>
