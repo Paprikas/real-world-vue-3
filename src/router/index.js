@@ -6,9 +6,9 @@ import EventRegister from '../views/event/EventRegister.vue'
 import EventCreate from '../views/event/EventCreate.vue'
 import EventEdit from '../views/event/EventEdit.vue'
 import NotFound from '../views/NotFound.vue'
-import NetworkError from '../views/NetworkError.vue'
 import NProgress from 'nprogress'
 import Store from '@/store'
+import ErrorDisplay from '@/views/ErrorDisplay'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -32,10 +32,7 @@ const routes = [
     props: true,
     component: EventLayout,
     beforeEnter: (to) => {
-      // TODO: Wait before rendering
       return Store.dispatch('fetchEvent', to.params.id).catch((error) => {
-        console.log(error)
-
         if (error.response && error.response.status == 404) {
           return {
             name: '404Resource',
@@ -45,7 +42,10 @@ const routes = [
           }
         } else {
           return {
-            name: 'NetworkError',
+            name: 'ErrorDisplay',
+            params: {
+              error: error,
+            },
           }
         }
       })
@@ -106,9 +106,10 @@ const routes = [
     props: true,
   },
   {
-    path: '/network-error',
-    name: 'NetworkError',
-    component: NetworkError,
+    path: '/error/:error',
+    name: 'ErrorDisplay',
+    component: ErrorDisplay,
+    props: true,
   },
 ]
 

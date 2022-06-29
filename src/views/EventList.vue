@@ -38,20 +38,25 @@ export default {
     EventCard,
   },
   props: ['page'],
+  // TODO: Fix rendering before state change
   beforeRouteEnter(routeTo, routeFrom, next) {
     return next((comp) => {
       const page = parseInt(routeTo.query.page) || 1
       return comp.$store.dispatch('fetchEvents', page).catch((error) => {
-        console.log(error)
-        return { name: 'NetworkError' }
+        return {
+          name: 'ErrorDisplay',
+          params: { error: error },
+        }
       })
     })
   },
   beforeRouteUpdate(routeTo) {
     const page = parseInt(routeTo.query.page) || 1
     return this.$store.dispatch('fetchEvents', page).catch((error) => {
-      console.log(error)
-      return { name: 'NetworkError' }
+      return {
+        name: 'ErrorDisplay',
+        params: { error: error },
+      }
     })
   },
   computed: {
