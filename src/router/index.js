@@ -3,12 +3,13 @@ import EventList from '../views/EventList.vue'
 import EventLayout from '../views/event/EventLayout.vue'
 import EventDetails from '../views/event/EventDetails.vue'
 import EventRegister from '../views/event/EventRegister.vue'
+import EventCreate from '../views/event/EventCreate.vue'
 import EventEdit from '../views/event/EventEdit.vue'
 import NotFound from '../views/NotFound.vue'
 import NetworkError from '../views/NetworkError.vue'
 import NProgress from 'nprogress'
 import EventService from '@/services/EventService.js'
-import GStore from '@/store'
+// import GStore from '@/store'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -22,6 +23,11 @@ const routes = [
     }),
   },
   {
+    path: '/events/create',
+    name: 'EventCreate',
+    component: EventCreate,
+  },
+  {
     path: '/events/:id',
     name: 'EventLayout',
     props: true,
@@ -29,7 +35,8 @@ const routes = [
     beforeEnter: (to) => {
       return EventService.getEvent(to.params.id)
         .then((response) => {
-          GStore.event = response.data
+          response.data
+          // GStore.event = response.data
         })
         .catch((error) => {
           console.log(error)
@@ -127,11 +134,11 @@ router.beforeEach((to, from) => {
 
   const notAuthorized = true
   if (to.meta.requireAuth && notAuthorized) {
-    GStore.flashMessage = "Sorry, you're not authorized"
-
-    setTimeout(() => {
-      GStore.flashMessage = ''
-    }, 3000)
+    // GStore.flashMessage = "Sorry, you're not authorized"
+    //
+    // setTimeout(() => {
+    //   GStore.flashMessage = ''
+    // }, 3000)
 
     if (from.href) {
       return false

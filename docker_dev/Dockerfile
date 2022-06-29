@@ -6,6 +6,7 @@ RUN apt update -q && apt install -y \
     nano > /dev/null
 
 RUN npm i -g @vue/cli
+RUN npm i -g json-server
 
 ENV APP_PATH /app
 RUN mkdir -p $APP_PATH
