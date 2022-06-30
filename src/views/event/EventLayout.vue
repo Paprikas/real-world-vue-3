@@ -1,6 +1,6 @@
 <template>
-  <div v-if="event.currentEvent">
-    <h1>{{ event.currentEvent.title }}</h1>
+  <div v-if="event">
+    <h1>{{ event.title }}</h1>
     <div id="nav">
       <router-link :to="{ name: 'EventDetails' }">Details</router-link>
       |
@@ -8,16 +8,25 @@
       |
       <router-link :to="{ name: 'EventEdit' }">Edit</router-link>
     </div>
-    <router-view :event="event.currentEvent" />
+    <router-view :event="event" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { useEventStore } from '@/store/EventStore'
 
 export default {
+  setup() {
+    const eventStore = useEventStore()
+
+    return {
+      eventStore,
+    }
+  },
   computed: {
-    ...mapState(['event']),
+    event() {
+      return this.eventStore.currentEvent
+    },
   },
 }
 </script>

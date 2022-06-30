@@ -46,9 +46,22 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid'
-import { mapState, mapActions } from 'vuex'
+import { useEventStore } from '@/store/EventStore'
+import { useUserStore } from '@/store/UserStore'
+import { useFlashStore } from '@/store/FlashStore'
 
 export default {
+  setup() {
+    const eventStore = useEventStore()
+    const userStore = useUserStore()
+    const flashStore = useFlashStore()
+
+    return {
+      eventStore,
+      userStore,
+      flashStore,
+    }
+  },
   data() {
     return {
       categories: [
@@ -72,25 +85,21 @@ export default {
       },
     }
   },
-  computed: {
-    ...mapState(['user']),
-  },
   methods: {
-    ...mapActions(['createEvent']),
-    ...mapActions('flash', ['setFlashMessage']),
     onSubmit() {
       const event = {
         ...this.event,
         id: uuidv4(),
-        organizer: this.user.userInfo.name,
+        organizer: this.userStore.name,
       }
-      this.createEvent(event)
+      this.eventStore
+        .createEvent(event)
         .then(() => {
-          this.setFlashMessage(
+          this.flashStore.setFlashMessage(
             'Event ' + event.title + ' successfully created!'
           )
           setTimeout(() => {
-            this.setFlashMessage('')
+            this.flashStore.setFlashMessage('')
           }, 3000)
           this.$router.push({ name: 'EventDetails', params: { id: event.id } })
         })

@@ -1,6 +1,6 @@
 <template>
-  <div id="flashMessage" v-if="flash.flashMessage">
-    {{ flash.flashMessage }}
+  <div id="flashMessage" v-if="flashMessage">
+    {{ flashMessage }}
   </div>
   <nav>
     <router-link :to="{ name: 'EventList' }">Events</router-link> |
@@ -11,11 +11,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { useFlashStore } from '@/store/FlashStore'
 
 export default {
+  setup() {
+    const flashStore = useFlashStore()
+
+    return {
+      flashStore,
+    }
+  },
   computed: {
-    ...mapState(['flash']),
+    flashMessage() {
+      return this.flashStore.flashMessage
+    },
   },
 }
 </script>

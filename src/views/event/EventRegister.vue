@@ -4,19 +4,24 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { useFlashStore } from '@/store/FlashStore'
 
 export default {
   props: ['event'],
+  setup() {
+    const flashStore = useFlashStore()
+    return {
+      flashStore,
+    }
+  },
   methods: {
-    ...mapActions('flash', ['setFlashMessage']),
     register() {
-      this.setFlashMessage(
+      this.flashStore.setFlashMessage(
         "You're successfully registered for " + this.event.title
       )
 
       setTimeout(() => {
-        this.setFlashMessage('')
+        this.flashStore.setFlashMessage('')
       }, 3000)
 
       // this.$router.replace will not save in history

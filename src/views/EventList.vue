@@ -1,7 +1,11 @@
 <template>
-  <h1>Events For {{ userStore.firstName }}</h1>
+  <h1>{{ eventStore.numberOfEvents }} Events For {{ userStore.firstName }}</h1>
   <div class="events">
-    <EventCard v-for="event in event.events" :key="event.id" :event="event" />
+    <EventCard
+      v-for="event in eventStore.events"
+      :key="event.id"
+      :event="event"
+    />
     <div class="pagination">
       <router-link
         id="page-prev"
@@ -31,8 +35,8 @@
 <script>
 // @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
-import { mapState, mapActions } from 'vuex'
 import { useUserStore } from '@/store/UserStore'
+import { useEventStore } from '@/store/EventStore'
 
 export default {
   name: 'EventList',
@@ -41,27 +45,29 @@ export default {
   },
   setup() {
     const userStore = useUserStore()
+    const eventStore = useEventStore()
 
     return {
       userStore,
+      eventStore,
     }
   },
   props: ['page'],
-  // TODO: Fix rendering before state change
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    return next((comp) => {
-      const page = parseInt(routeTo.query.page) || 1
-      return comp.$store.dispatch('fetchEvents', page).catch((error) => {
-        return {
-          name: 'ErrorDisplay',
-          params: { error: error },
-        }
-      })
+  // Fired before component render
+  beforeRouteEnter(routeTo) {
+    const eventStore = useEventStore()
+    const page = parseInt(routeTo.query.page) || 1
+    return eventStore.fetchEvents(page).catch((error) => {
+      return {
+        name: 'ErrorDisplay',
+        params: { error: error },
+      }
     })
   },
+  // Fired on pagination
   beforeRouteUpdate(routeTo) {
     const page = parseInt(routeTo.query.page) || 1
-    return this.fetchEvents(page).catch((error) => {
+    return this.eventStore.fetchEvents(page).catch((error) => {
       return {
         name: 'ErrorDisplay',
         params: { error: error },
@@ -69,16 +75,12 @@ export default {
     })
   },
   computed: {
-    ...mapState(['event', 'user']),
     totalPages() {
-      return Math.ceil(this.event.totalEvents / 2)
+      return Math.ceil(this.eventStore.totalEvents / 2)
     },
     hasNextPage() {
       return this.page < this.totalPages
     },
-  },
-  methods: {
-    ...mapActions(['fetchEvents']),
   },
 }
 </script>

@@ -7,8 +7,9 @@ import EventCreate from '../views/event/EventCreate.vue'
 import EventEdit from '../views/event/EventEdit.vue'
 import NotFound from '../views/NotFound.vue'
 import NProgress from 'nprogress'
-import Store from '@/store'
 import ErrorDisplay from '@/views/ErrorDisplay'
+import { useEventStore } from '@/store/EventStore'
+import { useFlashStore } from '@/store/FlashStore'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -32,8 +33,9 @@ const routes = [
     props: true,
     component: EventLayout,
     beforeEnter: (to) => {
-      return Store.dispatch('fetchEvent', to.params.id).catch((error) => {
-        if (error.response && error.response.status == 404) {
+      const eventStore = useEventStore()
+      return eventStore.fetchEvent(to.params.id).catch((error) => {
+        if (error.response && error.response.status === 404) {
           return {
             name: '404Resource',
             params: {
@@ -130,10 +132,11 @@ router.beforeEach((to, from) => {
 
   const notAuthorized = true
   if (to.meta.requireAuth && notAuthorized) {
-    Store.dispatch('flash/setFlashMessage', "Sorry, you're not authorized")
+    const flashStore = useFlashStore()
+    flashStore.setFlashMessage("Sorry, you're not authorized")
 
     setTimeout(() => {
-      Store.dispatch('flash/setFlashMessage', '')
+      flashStore.setFlashMessage('')
     }, 3000)
 
     if (from.href) {
