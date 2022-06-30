@@ -1,5 +1,5 @@
 <template>
-  <h1>Events For {{ user.userInfo.name }}</h1>
+  <h1>Events For {{ userStore.firstName }}</h1>
   <div class="events">
     <EventCard v-for="event in event.events" :key="event.id" :event="event" />
     <div class="pagination">
@@ -32,11 +32,19 @@
 // @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
 import { mapState, mapActions } from 'vuex'
+import { useUserStore } from '@/store/UserStore'
 
 export default {
   name: 'EventList',
   components: {
     EventCard,
+  },
+  setup() {
+    const userStore = useUserStore()
+
+    return {
+      userStore,
+    }
   },
   props: ['page'],
   // TODO: Fix rendering before state change
