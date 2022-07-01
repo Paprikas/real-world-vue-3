@@ -8,17 +8,25 @@
     <router-link :to="{ name: 'EventCreate' }">Create Event</router-link>
   </nav>
   <router-view />
+  <p>Mouse position is {{ x }} {{ y }}</p>
 </template>
 
 <script>
 import { useFlashStore } from '@/store/FlashStore'
+import { useMouse } from '@/composables/mouse'
+import { useTitle } from '@vueuse/core'
 
 export default {
   setup() {
     const flashStore = useFlashStore()
+    const { x, y } = useMouse()
+    const title = useTitle('Event List', { titleTemplate: '%s | Event Maker' })
 
     return {
       flashStore,
+      y,
+      x,
+      title,
     }
   },
   computed: {
