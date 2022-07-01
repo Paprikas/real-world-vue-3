@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Create an event</h1>
-    <form>
+    <form @submit.prevent="sendForm">
       <BaseSelect
         label="Select a category:"
         v-model="event.category"
@@ -102,7 +102,7 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    sendForm() {
       const event = {
         ...this.event,
         id: uuidv4(),
