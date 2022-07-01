@@ -1,45 +1,54 @@
 <template>
-  <h1>Create an event</h1>
-
-  <div class="form-container">
-    <form @submit.prevent="onSubmit">
-      <label>Select a category: </label>
-      <select v-model="event.category">
-        <option
-          v-for="option in categories"
-          :value="option"
-          :key="option"
-          :selected="option === event.category"
-        >
-          {{ option }}
-        </option>
-      </select>
+  <div>
+    <h1>Create an event</h1>
+    <form>
+      <BaseSelect
+        label="Select a category:"
+        v-model="event.category"
+        :options="categories"
+      />
 
       <h3>Name & describe your event</h3>
 
-      <label>Title</label>
-      <input v-model="event.title" type="text" placeholder="Title" />
+      <BaseInput v-model="event.title" label="Title" type="text"></BaseInput>
 
-      <label>Description</label>
-      <input
+      <BaseInput
         v-model="event.description"
+        label="Description"
         type="text"
-        placeholder="Description"
-      />
+      ></BaseInput>
 
       <h3>Where is your event?</h3>
 
-      <label>Location</label>
-      <input v-model="event.location" type="text" placeholder="Location" />
+      <BaseInput
+        v-model="event.location"
+        label="Location"
+        type="text"
+      ></BaseInput>
 
-      <h3>When is your event?</h3>
-      <label>Date</label>
-      <input v-model="event.date" type="text" placeholder="Date" />
+      <h3>Are pets allowed?</h3>
+      <div>
+        <input type="radio" v-model="event.pets" :value="1" name="pets" />
+        <label>Yes</label>
+      </div>
 
-      <label>Time</label>
-      <input v-model="event.time" type="text" placeholder="Time" />
+      <div>
+        <input type="radio" v-model="event.pets" :value="0" name="pets" />
+        <label>No</label>
+      </div>
 
-      <button type="submit">Submit</button>
+      <h3>Extras</h3>
+      <div>
+        <input type="checkbox" v-model="event.extras.catering" class="field" />
+        <label>Catering</label>
+      </div>
+
+      <div>
+        <input type="checkbox" v-model="event.extras.music" class="field" />
+        <label>Live music</label>
+      </div>
+
+      <button class="button -fill-gradient" type="submit">Submit</button>
     </form>
   </div>
 </template>
@@ -49,8 +58,11 @@ import { v4 as uuidv4 } from 'uuid'
 import { useEventStore } from '@/store/EventStore'
 import { useUserStore } from '@/store/UserStore'
 import { useFlashStore } from '@/store/FlashStore'
+import BaseInput from '@/components/BaseInput'
+import BaseSelect from '@/components/BaseSelect'
 
 export default {
+  components: { BaseSelect, BaseInput },
   setup() {
     const eventStore = useEventStore()
     const userStore = useUserStore()
@@ -74,14 +86,15 @@ export default {
         'community',
       ],
       event: {
-        id: '',
         category: '',
         title: '',
         description: '',
         location: '',
-        date: '',
-        time: '',
-        organizer: '',
+        pets: 1,
+        extras: {
+          catering: false,
+          music: false,
+        },
       },
     }
   },
