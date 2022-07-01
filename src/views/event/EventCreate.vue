@@ -28,11 +28,11 @@
 
       <h3>Are pets allowed?</h3>
       <div>
-        <BaseRadio v-model="event.pets" label="Yes" :value="1" name="pets" />
-      </div>
-
-      <div>
-        <BaseRadio v-model="event.pets" label="No" :value="0" name="pets" />
+        <BaseRadioGroup
+          v-model="event.pets"
+          name="pets"
+          :options="petOptions"
+        />
       </div>
 
       <h3>Extras</h3>
@@ -54,11 +54,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { useEventStore } from '@/store/EventStore'
 import { useUserStore } from '@/store/UserStore'
 import { useFlashStore } from '@/store/FlashStore'
-import BaseCheckbox from '@/components/BaseCheckbox'
-import BaseRadio from '@/components/BaseRadio'
 
 export default {
-  components: { BaseRadio, BaseCheckbox },
   setup() {
     const eventStore = useEventStore()
     const userStore = useUserStore()
@@ -92,6 +89,16 @@ export default {
           music: false,
         },
       },
+      petOptions: [
+        {
+          label: 'Yes',
+          value: 1,
+        },
+        {
+          label: 'No',
+          value: 0,
+        },
+      ],
     }
   },
   methods: {
