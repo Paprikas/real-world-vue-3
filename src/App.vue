@@ -5,7 +5,8 @@
   <nav>
     <router-link :to="{ name: 'EventList' }">Events</router-link> |
     <router-link :to="{ name: 'AboutView' }">About</router-link> |
-    <router-link :to="{ name: 'EventCreate' }">Create Event</router-link>
+    <router-link :to="{ name: 'EventCreate' }">Create Event</router-link> |
+    <router-link :to="{ name: 'LoginForm' }">Sign in</router-link>
   </nav>
   <router-view />
   <p>Mouse position is {{ x }} {{ y }}</p>
@@ -224,6 +225,7 @@ textarea {
 [type='text'],
 [type='number'],
 [type='search'],
+[type='email'],
 [type='password'] {
   height: 52px;
   width: 100%;
@@ -233,6 +235,7 @@ textarea {
 [type='text']:focus,
 [type='number']:focus,
 [type='search']:focus,
+[type='email']:focus,
 [type='password']:focus {
   border-color: #39b982;
 }

@@ -10,6 +10,7 @@ import NProgress from 'nprogress'
 import ErrorDisplay from '@/views/ErrorDisplay'
 import { useEventStore } from '@/store/EventStore'
 import { useFlashStore } from '@/store/FlashStore'
+import LoginForm from '@/views/LoginForm'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -95,6 +96,11 @@ const routes = [
     path: '/about',
     name: 'AboutView',
     component: AboutView,
+  },
+  {
+    path: '/login',
+    name: 'LoginForm',
+    component: LoginForm,
   },
   {
     path: '/:catchAll(.*)',
