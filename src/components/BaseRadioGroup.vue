@@ -4,6 +4,8 @@
     :key="option.value"
     :is="vertical ? 'div' : 'span'"
     :class="{ horizontal: !vertical }"
+    :aria-describedby="error ? `${uuid}-error` : null"
+    :aria-invalid="error ? true : null"
   >
     <BaseRadio
       :label="option.label"
@@ -12,6 +14,14 @@
       :modelValue="modelValue"
       @update:modelValue="$emit('update:modelValue', $event)"
     />
+    <p
+      v-if="error"
+      class="errorMessage"
+      :id="`${uuid}-error`"
+      aria-live="assertive"
+    >
+      {{ error }}
+    </p>
   </component>
 </template>
 
@@ -33,6 +43,10 @@ export default {
     vertical: {
       type: Boolean,
       default: false,
+    },
+    error: {
+      type: String,
+      default: '',
     },
   },
 }
