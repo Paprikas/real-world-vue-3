@@ -7,7 +7,7 @@ x-base: &base
 services:
   web:
     <<: *base
-    restart: always
+    restart: on-failure
     volumes:
       - .:/app
     command: npm run start
@@ -17,7 +17,7 @@ services:
       - "3000:3000"
   ui:
     <<: *base
-    restart: always
+    restart: on-failure
     volumes:
       - .:/app
     command: vue ui --host 0.0.0.0
