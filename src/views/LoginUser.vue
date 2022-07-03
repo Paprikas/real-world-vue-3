@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <form @submit.prevent="login">
     <BaseInput
       label="Email"
       type="email"
@@ -16,17 +16,20 @@
     />
 
     <BaseButton type="submit" class="-fill-gradient"> Submit </BaseButton>
+
+    <router-link :to="{ name: 'RegisterUser' }"
+      >Don't have an account? Register here!</router-link
+    >
   </form>
 </template>
 
 <script>
 import { useField, useForm } from 'vee-validate'
+import { useUserStore } from '@/store/UserStore'
 
 export default {
   setup() {
-    function onSubmit() {
-      alert('Submitted')
-    }
+    const userStore = useUserStore()
 
     const validations = {
       email: (value) => {
@@ -64,13 +67,25 @@ export default {
     }
 
     return {
-      onSubmit,
+      userStore,
       email,
       emailError,
       handleChange,
       password,
       passwordError,
     }
+  },
+  methods: {
+    login() {
+      this.userStore
+        .login({
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ name: 'EventList' })
+        })
+    },
   },
 }
 </script>

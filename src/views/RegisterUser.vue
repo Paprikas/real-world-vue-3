@@ -5,6 +5,10 @@
       <BaseInput v-model="email" label="Email" type="email" />
       <BaseInput v-model="password" label="Password" type="password" />
       <BaseButton class="-fill-gradient" type="submit">Submit</BaseButton>
+
+      <router-link :to="{ name: 'LoginUser' }"
+        >Already have an account? Login here!</router-link
+      >
     </form>
   </div>
 </template>

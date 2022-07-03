@@ -3,19 +3,18 @@
     <router-link :to="{ name: 'EventList' }">Events</router-link> |
     <router-link :to="{ name: 'AboutView' }">About</router-link> |
     <router-link :to="{ name: 'EventCreate' }">Create Event</router-link>
-    <span v-if="!loggedIn()">|</span>
-    <router-link :to="{ name: 'RegisterUser' }" v-if="!loggedIn()"
-      >Register</router-link
-    >
-    <span v-if="!loggedIn()">|</span>
-    <router-link :to="{ name: 'LoginForm' }" v-if="!loggedIn()"
-      >Sign in</router-link
-    >
+    <div v-if="!loggedIn">
+      |
+      <router-link :to="{ name: 'RegisterUser' }">Register</router-link>
+      |
+      <router-link :to="{ name: 'LoginUser' }">Sign in</router-link>
+    </div>
   </nav>
 </template>
 
 <script>
 import { useUserStore } from '@/store/UserStore'
+import { authComputed } from '@/store/helpers'
 export default {
   setup() {
     const userStore = useUserStore()
@@ -24,10 +23,8 @@ export default {
       userStore,
     }
   },
-  methods: {
-    loggedIn() {
-      return this.userStore.user
-    },
+  computed: {
+    ...authComputed,
   },
 }
 </script>
