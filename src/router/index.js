@@ -11,6 +11,7 @@ import ErrorDisplay from '@/views/ErrorDisplay'
 import { useEventStore } from '@/store/EventStore'
 import { useFlashStore } from '@/store/FlashStore'
 import LoginForm from '@/views/LoginForm'
+import RegisterUser from '@/views/RegisterUser'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -96,6 +97,11 @@ const routes = [
     path: '/about',
     name: 'AboutView',
     component: AboutView,
+  },
+  {
+    path: '/register',
+    name: 'RegisterUser',
+    component: RegisterUser,
   },
   {
     path: '/login',

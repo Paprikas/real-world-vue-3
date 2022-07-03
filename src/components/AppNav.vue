@@ -2,13 +2,34 @@
   <nav>
     <router-link :to="{ name: 'EventList' }">Events</router-link> |
     <router-link :to="{ name: 'AboutView' }">About</router-link> |
-    <router-link :to="{ name: 'EventCreate' }">Create Event</router-link> |
-    <router-link :to="{ name: 'LoginForm' }">Sign in</router-link>
+    <router-link :to="{ name: 'EventCreate' }">Create Event</router-link>
+    <span v-if="!loggedIn()">|</span>
+    <router-link :to="{ name: 'RegisterUser' }" v-if="!loggedIn()"
+      >Register</router-link
+    >
+    <span v-if="!loggedIn()">|</span>
+    <router-link :to="{ name: 'LoginForm' }" v-if="!loggedIn()"
+      >Sign in</router-link
+    >
   </nav>
 </template>
 
 <script>
-export default {}
+import { useUserStore } from '@/store/UserStore'
+export default {
+  setup() {
+    const userStore = useUserStore()
+
+    return {
+      userStore,
+    }
+  },
+  methods: {
+    loggedIn() {
+      return this.userStore.user
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

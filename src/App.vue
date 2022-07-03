@@ -1,10 +1,10 @@
 <template>
   <AppNav />
-  <template class="page">
+  <div class="page">
     <FlashMessage />
     <router-view />
     <p>Mouse position is {{ x }} {{ y }}</p>
-  </template>
+  </div>
 </template>
 
 <script>

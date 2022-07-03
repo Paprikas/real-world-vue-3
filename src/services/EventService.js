@@ -19,4 +19,5 @@ export default {
   postEvent(event) {
     return apiClient.post('/dashboard', event)
   },
+  apiClient,
 }
