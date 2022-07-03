@@ -17,8 +17,9 @@ export const useEventStore = defineStore('EventStore', {
     fetchEvents(page) {
       return EventService.getEvents(2, page)
         .then((response) => {
-          this.events = response.data
-          this.totalEvents = response.headers['x-total-count']
+          this.events = response.data.events.events
+          // TODO: Retrieve events count
+          // this.totalEvents = response.headers['x-total-count']
         })
         .catch((error) => {
           throw error
