@@ -9,7 +9,8 @@
     <router-link :to="{ name: 'SimpleView' }">Simple</router-link>|
     <router-link :to="{ name: 'StaggerView' }">Stagger</router-link>|
     <router-link :to="{ name: 'StateView' }">State</router-link>|
-    <router-link :to="{ name: 'TimelineView' }">Timeline</router-link>
+    <router-link :to="{ name: 'TimelineView' }">Timeline</router-link>|
+    <router-link :to="{ name: 'MasterView' }">Master</router-link>
     <div v-if="!loggedIn">
       | <router-link :to="{ name: 'RegisterUser' }">Register</router-link>|
       <router-link :to="{ name: 'LoginUser' }">Sign in</router-link>
