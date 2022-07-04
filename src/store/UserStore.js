@@ -41,5 +41,12 @@ export const useUserStore = defineStore('UserStore', {
           ] = `Bearer ${data.token}`
         })
     },
+    logout() {
+      localStorage.removeItem('user')
+      location.reload()
+      // Use location.reload() instead of manually overriding data
+      // this.user = null
+      // EventService.apiClient.defaults.headers.common['Authorization'] = null
+    },
   },
 })

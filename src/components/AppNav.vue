@@ -4,11 +4,12 @@
     <router-link :to="{ name: 'AboutView' }">About</router-link> |
     <router-link :to="{ name: 'EventCreate' }">Create Event</router-link>
     <div v-if="!loggedIn">
-      |
-      <router-link :to="{ name: 'RegisterUser' }">Register</router-link>
-      |
+      | <router-link :to="{ name: 'RegisterUser' }">Register</router-link>|
       <router-link :to="{ name: 'LoginUser' }">Sign in</router-link>
     </div>
+    <BaseButton v-else class="logoutButton" type="button" @click="logout"
+      >Logout</BaseButton
+    >
   </nav>
 </template>
 
@@ -25,6 +26,11 @@ export default {
   },
   computed: {
     ...authComputed,
+  },
+  methods: {
+    logout() {
+      this.userStore.logout()
+    },
   },
 }
 </script>

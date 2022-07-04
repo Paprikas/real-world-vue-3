@@ -20,6 +20,7 @@ const routes = [
     path: '/',
     name: 'EventList',
     component: EventList,
+    meta: { requireAuth: true },
     props: (route) => ({
       page: parseInt(route.query.page) || 1,
     }),
@@ -142,8 +143,9 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   NProgress.start()
 
-  const notAuthorized = true
-  if (to.meta.requireAuth && notAuthorized) {
+  const loggedIn = localStorage.getItem('user')
+
+  if (to.meta.requireAuth && !loggedIn) {
     const flashStore = useFlashStore()
     flashStore.setFlashMessage("Sorry, you're not authorized")
 
@@ -154,7 +156,7 @@ router.beforeEach((to, from) => {
     if (from.href) {
       return false
     } else {
-      return { path: '/' }
+      return { name: 'AboutView' }
     }
   }
 })

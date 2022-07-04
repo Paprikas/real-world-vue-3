@@ -1,8 +1,8 @@
 import { useUserStore } from '@/store/UserStore'
-const userStore = useUserStore()
 
 export const authComputed = {
   loggedIn() {
+    const userStore = useUserStore()
     return userStore.loggedIn
   },
 }
