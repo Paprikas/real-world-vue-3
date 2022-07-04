@@ -2,7 +2,13 @@
   <AppNav />
   <div class="page">
     <FlashMessage />
-    <router-view />
+
+    <router-view v-slot="{ Component }">
+      <transition name="slide-fade" mode="out-in"
+        ><component :is="Component"
+      /></transition>
+    </router-view>
+
     <p>Mouse position is {{ x }} {{ y }}</p>
   </div>
 </template>
