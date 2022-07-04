@@ -17,6 +17,7 @@ import DrawerView from '@/views/DrawerView'
 import CardsView from '@/views/CardsView'
 import SimpleView from '@/views/SimpleView'
 import StaggerView from '@/views/StaggerView'
+import StateView from '@/views/StateView'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -128,6 +129,11 @@ const routes = [
     path: '/stagger',
     name: 'StaggerView',
     component: StaggerView,
+  },
+  {
+    path: '/state',
+    name: 'StateView',
+    component: StateView,
   },
   {
     path: '/register',

@@ -7,7 +7,8 @@
     <router-link :to="{ name: 'DrawerView' }">Drawer</router-link>|
     <router-link :to="{ name: 'CardsView' }">Cards</router-link>|
     <router-link :to="{ name: 'SimpleView' }">Simple</router-link>|
-    <router-link :to="{ name: 'StaggerView' }">Stagger</router-link>
+    <router-link :to="{ name: 'StaggerView' }">Stagger</router-link>|
+    <router-link :to="{ name: 'StateView' }">State</router-link>
     <div v-if="!loggedIn">
       | <router-link :to="{ name: 'RegisterUser' }">Register</router-link>|
       <router-link :to="{ name: 'LoginUser' }">Sign in</router-link>
