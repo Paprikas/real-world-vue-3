@@ -17,7 +17,7 @@
 
     <p v-if="error">{{ error }}</p>
 
-    <BaseButton type="submit" class="-fill-gradient"> Submit </BaseButton>
+    <BaseButton type="submit" > Submit </BaseButton>
 
     <router-link :to="{ name: 'RegisterUser' }"
       >Don't have an account? Register here!</router-link

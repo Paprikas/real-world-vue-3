@@ -2,7 +2,8 @@
   <nav>
     <router-link :to="{ name: 'EventList' }">Events</router-link> |
     <router-link :to="{ name: 'AboutView' }">About</router-link> |
-    <router-link :to="{ name: 'EventCreate' }">Create Event</router-link>
+    <router-link :to="{ name: 'EventCreate' }">Create Event</router-link>|
+    <router-link :to="{ name: 'ListView' }">List</router-link>
     <div v-if="!loggedIn">
       | <router-link :to="{ name: 'RegisterUser' }">Register</router-link>|
       <router-link :to="{ name: 'LoginUser' }">Sign in</router-link>

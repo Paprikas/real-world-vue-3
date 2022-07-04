@@ -70,7 +70,7 @@
         </div>
       </fieldset>
 
-      <BaseButton class="-fill-gradient" type="submit">Submit</BaseButton>
+      <BaseButton type="submit">Submit</BaseButton>
     </form>
   </div>
 </template>

@@ -12,6 +12,7 @@ import { useEventStore } from '@/store/EventStore'
 import { useFlashStore } from '@/store/FlashStore'
 import LoginUser from '@/views/LoginUser'
 import RegisterUser from '@/views/RegisterUser'
+import ListView from '@/views/ListView'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -98,6 +99,11 @@ const routes = [
     path: '/about',
     name: 'AboutView',
     component: AboutView,
+  },
+  {
+    path: '/list',
+    name: 'ListView',
+    component: ListView,
   },
   {
     path: '/register',

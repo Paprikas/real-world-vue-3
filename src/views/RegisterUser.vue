@@ -7,7 +7,7 @@
       <ul v-if="errors">
         <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
       </ul>
-      <BaseButton class="-fill-gradient" type="submit">Submit</BaseButton>
+      <BaseButton type="submit">Submit</BaseButton>
 
       <router-link :to="{ name: 'LoginUser' }"
         >Already have an account? Login here!</router-link
