@@ -10,9 +10,6 @@ export const useUserStore = () => {
       }
     },
     getters: {
-      firstName() {
-        return this.user.name.split(' ')[0]
-      },
       loggedIn() {
         return !!this.user
       },

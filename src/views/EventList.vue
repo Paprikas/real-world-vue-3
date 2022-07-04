@@ -1,5 +1,5 @@
 <template>
-  <h1>{{ eventStore.numberOfEvents }} Events For {{ userStore.firstName }}</h1>
+  <h1>{{ eventStore.numberOfEvents }} Events For Life</h1>
   <div class="events">
     <EventCard
       v-for="event in eventStore.events"

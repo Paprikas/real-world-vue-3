@@ -1,5 +1,42 @@
 <template>
   <div class="about">
     <h1>A site for Events</h1>
+    <BaseButton @click="toggleModal" type="button" class="-fill-gradient"
+      >Open</BaseButton
+    >
+
+    <transition name="fade">
+      <div v-if="isOpen" class="modal">
+        <BaseButton @click="toggleModal" type="button" class="-fill-gradient"
+          >Close</BaseButton
+        >
+      </div>
+    </transition>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
+  methods: {
+    toggleModal() {
+      this.isOpen = !this.isOpen
+    },
+  },
+}
+</script>
+
+<style>
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+</style>
