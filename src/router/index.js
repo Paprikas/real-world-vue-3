@@ -13,6 +13,8 @@ import { useFlashStore } from '@/store/FlashStore'
 import LoginUser from '@/views/LoginUser'
 import RegisterUser from '@/views/RegisterUser'
 import ListView from '@/views/ListView'
+import DrawerView from '@/views/DrawerView'
+import CardsView from '@/views/CardsView'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -104,6 +106,16 @@ const routes = [
     path: '/list',
     name: 'ListView',
     component: ListView,
+  },
+  {
+    path: '/drawer',
+    name: 'DrawerView',
+    component: DrawerView,
+  },
+  {
+    path: '/cards',
+    name: 'CardsView',
+    component: CardsView,
   },
   {
     path: '/register',
