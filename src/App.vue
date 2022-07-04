@@ -3,11 +3,14 @@
   <div class="page">
     <FlashMessage />
 
-    <router-view v-slot="{ Component }">
-      <transition name="slide-fade" mode="out-in"
-        ><component :is="Component"
-      /></transition>
-    </router-view>
+    <router-view />
+    <!--    TODO: Learn how to combine page transition with component transition-->
+    <!--    This code holds per page transition effect-->
+    <!--    <router-view v-slot="{ Component }">-->
+    <!--      <transition name="slide-fade" mode="out-in"-->
+    <!--        ><component :is="Component"-->
+    <!--      /></transition>-->
+    <!--    </router-view>-->
 
     <p>Mouse position is {{ x }} {{ y }}</p>
   </div>

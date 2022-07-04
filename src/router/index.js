@@ -15,6 +15,8 @@ import RegisterUser from '@/views/RegisterUser'
 import ListView from '@/views/ListView'
 import DrawerView from '@/views/DrawerView'
 import CardsView from '@/views/CardsView'
+import SimpleView from '@/views/SimpleView'
+import StaggerView from '@/views/StaggerView'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -116,6 +118,16 @@ const routes = [
     path: '/cards',
     name: 'CardsView',
     component: CardsView,
+  },
+  {
+    path: '/simple',
+    name: 'SimpleView',
+    component: SimpleView,
+  },
+  {
+    path: '/stagger',
+    name: 'StaggerView',
+    component: StaggerView,
   },
   {
     path: '/register',
