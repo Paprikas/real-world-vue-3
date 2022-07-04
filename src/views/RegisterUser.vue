@@ -4,6 +4,9 @@
       <BaseInput v-model="name" label="Name" type="text" />
       <BaseInput v-model="email" label="Email" type="email" />
       <BaseInput v-model="password" label="Password" type="password" />
+      <ul v-if="errors">
+        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+      </ul>
       <BaseButton class="-fill-gradient" type="submit">Submit</BaseButton>
 
       <router-link :to="{ name: 'LoginUser' }"
@@ -29,6 +32,7 @@ export default {
       name: '',
       email: '',
       password: '',
+      errors: null,
     }
   },
   props: {},
@@ -42,6 +46,9 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'EventList' })
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors
         })
     },
   },

@@ -15,6 +15,8 @@
       :error="passwordError"
     />
 
+    <p v-if="error">{{ error }}</p>
+
     <BaseButton type="submit" class="-fill-gradient"> Submit </BaseButton>
 
     <router-link :to="{ name: 'RegisterUser' }"
@@ -75,6 +77,11 @@ export default {
       passwordError,
     }
   },
+  data() {
+    return {
+      error: null,
+    }
+  },
   methods: {
     login() {
       this.userStore
@@ -84,6 +91,9 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'EventList' })
+        })
+        .catch((error) => {
+          this.error = error.response.data.error
         })
     },
   },
