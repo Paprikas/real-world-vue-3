@@ -18,6 +18,7 @@ import CardsView from '@/views/CardsView'
 import SimpleView from '@/views/SimpleView'
 import StaggerView from '@/views/StaggerView'
 import StateView from '@/views/StateView'
+import TimelineView from '@/views/TimelineView'
 
 const AboutView = () => import('../views/AboutView.vue')
 
@@ -134,6 +135,11 @@ const routes = [
     path: '/state',
     name: 'StateView',
     component: StateView,
+  },
+  {
+    path: '/timeline',
+    name: 'TimelineView',
+    component: TimelineView,
   },
   {
     path: '/register',
